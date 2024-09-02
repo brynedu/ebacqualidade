@@ -8,37 +8,22 @@
             Contexto:
             Dado que o usuário esteja na página de login
 
-            Cenário: Logado com sucesso
-            Quando inserir seu nome de usuário "joaoebac" ou seu email "joao@ebac.com.br"
-            E inserir sua senha "ebac@123"
-            E clicar no botão "Login"
-            Então deve aparecer uma mensagem de "Usuário logado com sucesso"
-            E deve ser redirecionado para a página "Checkout"
-            E deve aparecer sua lista de pedidos
-
-            Cenário: Falha na autenticação
-            Quando inserir seu nome de usuário "joaoebac" ou seu email "joao@ebac.com.br"
-            E inserir sua senha incorreta "1234"
-            E clicar no "Login"
-            Então deve aparecer a seguinte mensagem de erro "Usuário ou senha incorretos"
-            E quando inserir seu nome de usuário incorreto "joaoninguem" ou email "joaong@ebac.com.br"
-            E sua senha correta "ebac@123"
-            Então deve aparecer a seguinte mensagem de erro "Usuário ou senha incorretos"
-            
-            Cenário: Faltam dados
-            Quando o campo usúario ou email não for preenchido
-            E for inserido sua senha "ebac@123"
-            E clicado no botão "Login"
-            Então deve aparecer a seguinte mensagem de erro "Por favor insira um usuário válido"
-
-            E quando inserir o seu nome de usuário "joaoebac" ou seu email "joao@ebac.com.br"
-            E a a sua senha não for preenchida
-            Então deve aparecer a seguinte mensagem de erro "Por favor insira sua senha"
-
+            Esquema do Cenário: Logado com sucesso
+            Quando inserir seu nome de <usuario>, <email> e <senha> válidos
+            Então ao clicar em "Login" deve ser redirecionado ao "Checkout"
             Exemplos:
-            | Usuário  | Email            | Senha    | Válido   |
-            | joaoebac | joao@ebac.com.br | @ebac123 | Válido   |
-            | ""       | joao@ebac.com.br | @ebac123 | Inválido |
-            | joaoebac | ""               | @ebac123 | Inválido |
-            | joaoebac | joao@ebac.com.br | ""       | Inválido |
-            | ""       | ""               | ""       | Inválido |
+            | usuario  | email            | senha    | Válido |
+            | joaoebac | joao@ebac.com.br | @ebac123 | SIM    |
+
+            Esquema do Cenário: Falha na autenticação
+            Quando inserir seu nome de <usuario2>, <email2> ou <senha2> inválidos
+            Então ao clicar em "Login" deve surgir um alerta "Usuário ou senha incorretos"
+            Exemplos:
+            | usuario2 | email2           | senha2   | Válido |
+            | joaoebac | joao@ebac.com.br | @ebac123 | SIM    |
+            | joao     | joao@com.br      | 123      | NÃO    |
+
+            Cenário: Faltam dados
+            Quando algum dos campos usúario e e-mail, ou senha não for preenchido
+            Então ao clicar em "Login" deve surgir um alerta "Por favor, revise seus dados"
+
